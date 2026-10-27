@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>情绪天气站 · Mood Weather</title>
+<style>
+:root{color-scheme:light dark;--bg:#f5f2eb;--ink:#28352f;--muted:#68756c;--card:#fffdf8;--line:#dfe5da;--green:#446d58;--yellow:#f0c66b;--blue:#b9d9e8}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:ui-rounded,"SF Pro Display",system-ui,-apple-system,"PingFang SC",sans-serif;min-height:100vh}
+main{max-width:880px;margin:auto;padding:28px 20px 52px}.top{display:flex;justify-content:space-between;align-items:center;font-size:13px;color:var(--muted);letter-spacing:.08em}.mark{font-weight:800;color:var(--green)}.hero{padding:48px 0 26px}.eyebrow{font-size:12px;letter-spacing:.18em;color:var(--green);font-weight:700}.hero h1{font-size:clamp(38px,8vw,68px);line-height:1.05;letter-spacing:-.055em;margin:14px 0}.hero p{color:var(--muted);font-size:16px;line-height:1.8;max-width:520px}.layout{display:grid;grid-template-columns:1.1fr .9fr;gap:16px}.panel{background:var(--card);border:1px solid var(--line);border-radius:24px;padding:24px;box-shadow:0 8px 30px #30452b0a}.panel h2{font-size:18px;margin:0 0 8px}.sub{font-size:13px;color:var(--muted);margin:0 0 18px}.choices{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}.choice{background:transparent;border:1px solid var(--line);border-radius:15px;padding:13px;text-align:left;color:var(--ink);font:inherit;cursor:pointer;transition:.18s}.choice:hover{transform:translateY(-2px);border-color:var(--green)}.choice[aria-pressed=true]{background:#e8f0e7;border-color:var(--green);box-shadow:inset 0 0 0 1px var(--green)}.emoji{font-size:25px;display:block;margin-bottom:7px}.choice strong{display:block;font-size:14px}.choice small{display:block;color:var(--muted);font-size:12px;margin-top:4px}.result{display:flex;flex-direction:column;min-height:100%;background:#e9f0e7}.sky{height:145px;display:grid;place-items:center;font-size:72px;background:linear-gradient(150deg,#dcece5,#f5e9c9);border-radius:18px;margin-bottom:20px;position:relative;overflow:hidden}.sky:after{content:"";position:absolute;width:180px;height:180px;border:1px solid #ffffff9c;border-radius:50%;right:-55px;top:-75px}.result h2{font-size:24px;margin:0 0 8px}.result p{line-height:1.75;color:#53665a;margin:0 0 18px}.tag{font-size:11px;letter-spacing:.1em;color:#53665a;font-weight:800}.action{border:0;border-radius:13px;background:var(--green);color:white;padding:13px 16px;font:inherit;font-weight:700;cursor:pointer;margin-top:auto}.action:hover{filter:brightness(1.08)}.note{margin-top:16px;font-size:12px;color:var(--muted);text-align:center}.bottom{display:flex;justify-content:space-between;gap:12px;align-items:center;margin-top:20px;font-size:12px;color:var(--muted)}.reset{background:none;border:0;text-decoration:underline;color:var(--muted);cursor:pointer;font:inherit}
+@media(max-width:650px){main{padding:20px 15px 36px}.hero{padding:35px 0 22px}.layout{grid-template-columns:1fr}.panel{padding:18px}.result{min-height:350px}.sky{height:120px}.bottom{align-items:flex-start}}
+@media(prefers-color-scheme:dark){:root{--bg:#17201b;--ink:#edf1e9;--muted:#aab7ab;--card:#202b24;--line:#39483c;--green:#a4c9ac}.choice[aria-pressed=true]{background:#2c4433}.result{background:#26372c}.sky{background:linear-gradient(150deg,#304b43,#4a4735)}.result p,.tag{color:#c2d3c3}}
+</style></head>
+<body><main>
+<div class="top"><span class="mark">☁ MOOD WEATHER</span><span>YOUR INNER FORECAST / 001</span></div>
+<header class="hero"><div class="eyebrow">A LITTLE CHECK-IN</div><h1>今天的心里，<br>是什么天气？</h1><p>不用把感受解释得很清楚。选一个最接近现在的状态，看看你的内心气象站会给出什么报告。</p></header>
+<div class="layout"><section class="panel"><h2>此刻的天气</h2><p class="sub">选一个最像你的，不必选“正确答案”。</p>
+<div class="choices" id="choices">
+<button class="choice" data-mood="sun" aria-pressed="true"><span class="emoji">☀️</span><strong>晴朗</strong><small>有点开心，或还不错</small></button>
+<button class="choice" data-mood="cloud"><span class="emoji">☁️</span><strong>多云</strong><small>说不上来是什么感觉</small></button>
+<button class="choice" data-mood="rain"><span class="emoji">🌧️</span><strong>下雨</strong><small>有些低落，想安静一会儿</small></button>
+<button class="choice" data-mood="storm"><span class="emoji">⛈️</span><strong>雷阵雨</strong><small>烦躁、紧绷，快没耐心了</small></button>
+<button class="choice" data-mood="wind"><span class="emoji">🍃</span><strong>起风了</strong><small>心里乱乱的，停不下来</small></button>
+<button class="choice" data-mood="fog"><span class="emoji">🌫️</span><strong>起雾</strong><small>疲惫，什么都不太想做</small></button>
+</div></section>
+<section class="panel result" aria-live="polite"><div class="sky" id="sky">☀️</div><div class="tag" id="tag">FORECAST 01 · CLEAR</div><h2 id="title">晴间微风</h2><p id="message">今天的你，似乎还有一点余裕。别急着把好心情变成待办事项，享受它就好。</p><button class="action" id="care">给我一个小任务 ↗</button></section></div>
+<div class="bottom"><span id="status">已记录此刻的天气。它不必代表一整天。</span><button class="reset" id="reset">重新开始</button></div><div class="note">天气会变化，你也可以。这里不需要满分答案。</div>
+</main>
+<script>
+const data={
+ sun:{icon:'☀️',tag:'FORECAST 01 · CLEAR',title:'晴间微风',message:'今天的你，似乎还有一点余裕。别急着把好心情变成待办事项，享受它就好。',tasks:['去喝几口水，给自己一个舒服的暂停。','听一首你喜欢的歌，不用同时做别的事。','把眼前一件小事做完，然后允许自己休息。']},
+ cloud:{icon:'🌤️',tag:'FORECAST 02 · PARTLY CLOUDY',title:'云层正在移动',message:'不必马上给心情下定义。有些日子就是模糊的，暂时不知道也完全可以。',tasks:['看看窗外，找到三样你注意到的东西。','写下脑子里最吵的一句话，然后先放着。','今天先不做重大决定，给自己一点缓冲。']},
+ rain:{icon:'🌧️',tag:'FORECAST 03 · RAIN',title:'小雨，适合慢一点',message:'低落不是失败，也不是你必须立刻修好的问题。先把自己照顾好，再考虑其他事。',tasks:['喝点水，找个舒服的位置坐两分钟。','把今天的要求减少一项，真的可以。','找一首适合此刻的歌，让情绪待一会儿。']},
+ storm:{icon:'⛈️',tag:'FORECAST 04 · THUNDERSTORM',title:'雷声很大，先避一避',message:'情绪太满的时候，不必急着回复、不必马上解决。先离开让你紧绷的事情片刻。',tasks:['先别发送那条让你犹豫的消息，等五分钟。','松开肩膀，慢慢呼气三次。','暂时离开刺激源，给自己一点空间。']},
+ wind:{icon:'🍃',tag:'FORECAST 05 · WINDY',title:'风有点大，抓住一件小事',message:'思绪到处跑时，试着把注意力放回一件很小、很具体的事。你不需要一次理清全部。',tasks:['说出眼前看见的三样东西。','只整理桌面的一小块，不必整理整间房。','把脑中待办写下来，今天只选一项。']},
+ fog:{icon:'🌫️',tag:'FORECAST 06 · FOG',title:'能见度较低，请慢行',message:'疲惫时看不清方向很正常。现在不必逼自己振作，先补充一点最基本的能量。',tasks:['如果可以，闭眼休息一分钟。','吃点东西或喝点水，检查一下基本需求。','把任务缩小到两分钟就能开始的程度。']}
+};let current='sun';
+function selectMood(key){current=key;const d=data[key];document.querySelectorAll('.choice').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.mood===key)));document.getElementById('sky').textContent=d.icon;document.getElementById('tag').textContent=d.tag;document.getElementById('title').textContent=d.title;document.getElementById('message').textContent=d.message;document.getElementById('status').textContent='天气已更新：'+d.title+'。它不必代表一整天。'}
+document.querySelectorAll('.choice').forEach(b=>b.addEventListener('click',()=>selectMood(b.dataset.mood)));
+document.getElementById('care').addEventListener('click',()=>{const tasks=data[current].tasks;const task=tasks[Math.floor(Math.random()*tasks.length)];document.getElementById('message').textContent=task;document.getElementById('care').textContent='再抽一个小任务 ↻';document.getElementById('status').textContent='已为你抽出一个小任务。做到一半也算。'});
+document.getElementById('reset').addEventListener('click',()=>{selectMood('sun');document.getElementById('care').textContent='给我一个小任务 ↗';document.getElementById('status').textContent='已重新开始。选一个此刻的天气吧。'});
+</script></body></html>
